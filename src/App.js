@@ -1,23 +1,27 @@
 import { Component } from "react";
+import faker from "faker";
 import "./App.css";
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      string: "Hello World!",
-    };
-  }
-  handeleButton = (e) => {
-    this.setState({
-      string: "Hallelujah",
-    });
+const monsters = [...Array(10)].map((monster) => {
+  return {
+    id: faker.datatype.uuid(),
+    name: faker.name.findName(),
+    email: faker.internet.email(),
   };
+});
+
+class App extends Component {
+  state = {
+    monsters,
+  };
+
   render() {
+    console.log(this.state.monsters);
     return (
       <div className="app">
-        <h2>The Lord is my {this.state.string}</h2>
-        <button onClick={this.handeleButton}>Chane Text</button>
+        {this.state.monsters.map((monster) => {
+          return <li key={monster.id}>{monster.id}</li>;
+        })}
       </div>
     );
   }
